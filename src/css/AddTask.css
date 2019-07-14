@@ -1,0 +1,7 @@
+.button-close {
+    cursor: pointer;
+    color: rgb(219, 24, 24);
+}
+.button-close:hover {
+    color: gray;
+}

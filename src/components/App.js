@@ -252,7 +252,6 @@ class App extends Component {
                         <div className="row my-3">
                             <div className="col-12">
                                 <ListTask 
-                                    tasks={tasks}
                                     onUpdateStatus={(id) => this.onUpdateStatus(id)}
                                     onDelete={(id) => this.onDelete(id)}
                                     onUpdate={(id) => this.onUpdate(id)}

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import TaskItem from './TaskItem';
+import { connect } from 'react-redux';
 
-export default class ListTask extends Component {
+
+class ListTask extends Component {
 
     constructor(props) {
         super(props);
@@ -81,3 +83,18 @@ export default class ListTask extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        tasks: state.tasks
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListTask)

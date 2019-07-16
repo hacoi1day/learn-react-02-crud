@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import './../css/TaskItem.css';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
-export default class TaskItem extends Component {
+class TaskItem extends Component {
 
     onUpdateStatus = () => {
         this.props.onUpdateStatus(this.props.task.id);
     }
 
     onDelete = () => {
-        this.props.onDelete(this.props.task.id);
+        this.props.ondeleteTask(this.props.task.id);
+        this.props.onCloseForm();
     }
 
-    onUpdate = () => {
-        this.props.onUpdate(this.props.task.id);
+    onEditTask = () => {
+        this.props.onOpenForm();
+        this.props.onEditTask(this.props.task);
     }
 
     render() {
@@ -32,7 +36,7 @@ export default class TaskItem extends Component {
                 <td>
                     <div className="btn-group">
                         <button 
-                            onClick={() => this.onUpdate()}
+                            onClick={() => this.onEditTask()}
                             className="btn btn-primary">
                             <span>
                                 <i className="fas fa-pen"></i>
@@ -53,3 +57,33 @@ export default class TaskItem extends Component {
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        
+    }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onUpdateStatus: (id) => {
+            dispatch(actions.updateStatus(id));
+        },
+        ondeleteTask: (id) => {
+            dispatch(actions.deleteTask(id));
+        },
+        onCloseForm: () => {
+            dispatch(actions.closeForm());
+        },
+        onOpenForm: () => {
+            dispatch(actions.openForm());
+        },
+        onToggleForm: () => {
+            dispatch(actions.toggleForm());
+        },
+        onEditTask: (task) => {
+            dispatch(actions.editTask(task));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

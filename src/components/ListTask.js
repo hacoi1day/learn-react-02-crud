@@ -32,8 +32,6 @@ class ListTask extends Component {
         let elementTasks = tasks.map((task, index) => {
             return(
                 <TaskItem 
-                    onUpdateStatus={(id) => this.props.onUpdateStatus(id)}
-                    onDelete={(id) => this.props.onDelete(id)}
                     onUpdate={(id) => this.props.onUpdate(id)}
                     key={task.id}
                     index={index}

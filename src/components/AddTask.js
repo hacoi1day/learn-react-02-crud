@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './../css/AddTask.css';
+import { connect } from 'react-redux';
+import * as types from './../constants/ActionType';
+import * as actions from './../actions/index';
 
-export default class AddTask extends Component {
+class AddTask extends Component {
 
     constructor(props) {
         super(props);
@@ -55,7 +58,8 @@ export default class AddTask extends Component {
     }
     onSubmit = (event) => {
         event.preventDefault();
-        this.props.onSubmit(this.state);
+        // add task with store
+        this.props.onAddTask(this.state);
         this.onClear();
         this.onCloseForm();
     }
@@ -69,6 +73,10 @@ export default class AddTask extends Component {
 
     render() {
         let {id} = this.state;
+        if(!this.props.isDisplayForm) {
+            return '';
+        }
+        console.log(this.props.itemEditing);
         return (
             <div>
                 <div className="card">
@@ -124,3 +132,26 @@ export default class AddTask extends Component {
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing,
+    }
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onAddTask: (task) => {
+            dispatch(actions.addTask(task));
+        },
+        onCloseForm: () => {
+            dispatch(actions.closeForm());
+        },
+        onOpenForm: () => {
+            dispatch(actions.openForm());
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
